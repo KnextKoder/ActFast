@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 
-export default function TabOneScreen() {
+export default function HomePage() {
   return (
     <View className="flex-1 items-center justify-center bg-white dark:bg-black">
       <View className="mt-2 mx-5 items-center">

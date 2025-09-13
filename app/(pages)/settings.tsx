@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import ToggleTheme from '@/components/ToggleTheme';
 
-export default function TabTwoScreen() {
+export default function SettingsPage() {
   const { colorScheme, setColorScheme } = useColorScheme();
   return (
     <SafeAreaView className="flex-1 pt-2 items-center justify-start bg-white dark:bg-black">
@@ -13,8 +13,8 @@ export default function TabTwoScreen() {
       {/* THEME SETTINGS */}
       <View className="flex w-full items-center justify-center my-10" style={{ gap: 2 }}>
         <Text className="w-5/6 text-lg text-start text-dark dark:text-neutral-200 mb-4">Theme Settings</Text>
-        <ToggleTheme colorScheme={colorScheme} setColorScheme={setColorScheme} theme="light" />
-        <ToggleTheme colorScheme={colorScheme} setColorScheme={setColorScheme} theme="dark" />
+        <ToggleTheme colorScheme={colorScheme ?? 'light'} setColorScheme={setColorScheme} theme="light" />
+        <ToggleTheme colorScheme={colorScheme ?? 'light'} setColorScheme={setColorScheme} theme="dark" />
       </View>
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </SafeAreaView>

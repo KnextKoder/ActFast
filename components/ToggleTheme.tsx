@@ -1,75 +1,68 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, View, StyleSheet } from "react-native";
+import { useColorScheme } from "nativewind";
 
-import { capitalizeFirstLetter } from '@/lib/utils';
+const themes: ("light" | "dark" | "system")[] = ["light", "dark", "system"];
 
-interface Props {
-  theme: 'light' | 'dark';
-  colorScheme: ColorSchemeSystem;
-  setColorScheme: (colorSchemeSystem: ColorSchemeSystem) => void;
-}
-
-export default function ToggleTheme({ colorScheme, setColorScheme, theme }: Props) {
-  const shadowBox = {
-    elevation: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      height: 5,
-      width: 0,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
-  };
+export default function ToggleTheme() {
+  const { colorScheme, setColorScheme } = useColorScheme();
 
   return (
-    <Pressable
-      style={{
-        alignItems: 'center',
-        backgroundColor: colorScheme === 'light' ? 'white' : '#333', // Replace dark:bg-neutral-900
-        flexDirection: 'row',
-        height: 56, // Equivalent to h-14
-        justifyContent: 'space-between',
-        paddingHorizontal: 32, // Equivalent to px-8
-        width: '83.33%', // Equivalent to w-5/6
-        ...(colorScheme === 'light' ? shadowBox : {}),
-        ...(theme === 'light'
-          ? { borderTopLeftRadius: 20, borderTopRightRadius: 20 }
-          : { borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }),
-      }}
-      onPress={async () => {
-        setColorScheme(theme as 'light' | 'dark' | 'system');
-      }}
-    >
-      <View className="flex flex-row items-center justify-center" style={{ gap: 15 }}>
-        <MaterialIcons
-          name={theme === 'dark' ? 'dark-mode' : 'light-mode'}
-          size={20}
-          color={colorScheme === 'dark' ? 'white' : 'black'}
-        />
-        <Text className="text-xl italic text-black dark:text-white">{capitalizeFirstLetter(theme)}</Text>
-      </View>
-      <View
-        style={{
-          alignItems: 'center',
-          borderColor: colorScheme === 'light' ? 'black' : 'white',
-          borderRadius: 12,
-          borderWidth: 2,
-          height: 24,
-          justifyContent: 'center',
-          width: 24,
-        }}
-      >
-        {colorScheme === theme && (
-          <View
-            style={{
-              backgroundColor: colorScheme === 'light' ? 'black' : 'white',
-              borderRadius: 6,
-              height: 10,
-              width: 10,
-            }}
-          />
-        )}
-      </View>
-    </Pressable>
+    <View style={styles.container}>
+      {themes.map((theme) => {
+        const active = colorScheme === theme;
+        return (
+          <Pressable
+            key={theme}
+            onPress={() => setColorScheme(theme)}
+            style={[
+              styles.option,
+              active ? styles.optionActive : styles.optionInactive,
+            ]}
+          >
+            <Text
+              style={[
+                styles.label,
+                active ? styles.labelActive : styles.labelInactive,
+              ]}
+            >
+              {theme.charAt(0).toUpperCase() + theme.slice(1)}
+            </Text>
+          </Pressable>
+        );
+      })}
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    width: "83%", // w-5/6
+    borderRadius: 12,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "#888",
+  },
+  option: {
+    flex: 1,
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  optionInactive: {
+    backgroundColor: "transparent",
+  },
+  optionActive: {
+    backgroundColor: "#2563eb", // Tailwind blue-600
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  labelInactive: {
+    color: "#444",
+  },
+  labelActive: {
+    color: "white",
+  },
+});

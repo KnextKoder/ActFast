@@ -86,7 +86,7 @@ export default function HomePage() {
     if (isRecording) {
       // Show audio waves while recording
       return (
-        <View className="flex flex-row space-x-2 justify-center items-center h-20">
+        <View className="w-screen flex flex-row space-x-2 justify-center items-center h-20">
           <View className="w-2 h-16 bg-blue-500 rounded-full animate-pulse-wave" />
           <View className="w-2 h-12 bg-blue-500 rounded-full animate-pulse-wave" />
           <View className="w-2 h-20 bg-blue-500 rounded-full animate-pulse-wave" />
@@ -108,19 +108,19 @@ export default function HomePage() {
     } else {
       // Default dummy content
       return (
-        <Text className="text-center text-black dark:text-white">
-          Marvel was here baby
+        <Text className="text-center text-black dark:text-white text-lg font-bold">
+          What's the problem? Ask me anything!
         </Text>
       );
     }
   };
 
   return (
-    <SafeAreaView className="h-screen flex bg-white/95 dark:bg-black pt-2">
-      <View className='w-screen flex justify-center items-end px-4 py-2' id='header'>
+    <SafeAreaView className="h-screen flex bg-white/95 dark:bg-black">
+      <View className='w-screen flex justify-center items-end px-4' id='header'>
         <Pressable onPress={() => router.push('/(pages)/settings')}>
           <View>
-            <MaterialIcons name="settings" size={24} color={Colors[colorScheme ?? 'light'].text} />
+            <MaterialIcons name="settings" size={32} color={Colors[colorScheme ?? 'light'].text} />
           </View>
         </Pressable>
       </View>
@@ -131,19 +131,14 @@ export default function HomePage() {
       </View>
 
       {/* Voice Button */}
-      <View id='voice-button' className="flex items-center justify-end p-8">
+      <View id='voice-button' className="flex h-fit items-center justify-end p-8">
         <Pressable
           onPress={isRecording ? stopRecording : startRecording}
           className={`
-            w-20 h-20 rounded-full items-center justify-center
-            ${isRecording ? 'bg-red-500' : 'bg-blue-500'}
+            w-32 h-32 rounded-full items-center justify-center
+            ${isRecording ? 'bg-red-500' : 'dark:bg-white/90 bg-black/90'}
           `}
         >
-          <MaterialIcons
-            name={isRecording ? "stop" : "mic"}
-            size={40}
-            color="white"
-          />
         </Pressable>
       </View>
     </SafeAreaView>

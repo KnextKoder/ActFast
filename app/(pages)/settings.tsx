@@ -3,6 +3,7 @@ import { Platform, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import ToggleTheme from '@/components/ToggleTheme';
+import ModelManager from '@/components/ModelManager';
 
 export default function SettingsPage() {
   return (
@@ -11,6 +12,8 @@ export default function SettingsPage() {
       <View className="flex w-full items-center justify-center my-10 py-2" style={{ gap: 12 }}>
         <ToggleTheme />
       </View>
+      {/* MODEL MANAGER */}
+      <ModelManager />
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </SafeAreaView>
   );

@@ -5,6 +5,7 @@ import { useColorScheme } from 'nativewind';
 import * as SplashScreen from 'expo-splash-screen';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import '../global.css';
@@ -43,7 +44,12 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <>
+      <StatusBar hidden />
+      <RootLayoutNav />
+    </>
+  );
 }
 
 function RootLayoutNav() {
